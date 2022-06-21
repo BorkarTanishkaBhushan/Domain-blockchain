@@ -7,15 +7,15 @@ const main = async () => {
     console.log("Contract deployed by: ", owner.address)
     
     //calling the register function of smart contract
-    const txn = await domainContract.register("doom");
+    const txn = await domainContract.register("smaash");
     await txn.wait();
 
     //calling the getAddress function of smart contract 
-    const domainOwner = await domainContract.getAddress("doom");
+    const domainOwner = await domainContract.getAddress("smaash");
     console.log("Owner of domain: ", domainOwner);
 
     //calling the setRecord function  
-    const setDomainRecord = await domainContract.setRecord("doom", "This is a test record");
+    const setDomainRecord = await domainContract.setRecord("smaash", "https://www.linkedin.com/in/tanishka-borkar-81aba7233/");
     await setDomainRecord.wait();
 
     //checking whether the require statements are working or not
