@@ -10,10 +10,17 @@ const main = async () => {
     const txn = await domainContract.register("doom");
     await txn.wait();
 
-
     //calling the getAddress function of smart contract 
     const domainOwner = await domainContract.getAddress("doom");
     console.log("Owner of domain: ", domainOwner);
+
+    //calling the setRecord function  
+    const setDomainRecord = await domainContract.setRecord("doom", "This is a test record");
+    await setDomainRecord.wait();
+
+    //calling the getRecord function
+    const getDomainRecord = await domainContract.getRecord("doom");
+    console.log("The record mapped is: %s", getDomainRecord);
 };
 
 const runMain = async () => {
