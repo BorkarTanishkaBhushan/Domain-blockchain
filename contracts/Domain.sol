@@ -35,7 +35,7 @@ contract Domains{
     }
 
     //this function will map the domain names with the owners address
-    function register(string calldata name) public {
+    function register(string calldata name) public payable{
         require(domains[name] == address(0)); //checks whether the domain is not taken by someone else
         uint _price = price(name);
         require(msg.value >= _price, "Not enough Matic paid");
