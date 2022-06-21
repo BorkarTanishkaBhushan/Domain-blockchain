@@ -18,9 +18,10 @@ const main = async () => {
     const setDomainRecord = await domainContract.setRecord("doom", "This is a test record");
     await setDomainRecord.wait();
 
-    //calling the getRecord function
-    const getDomainRecord = await domainContract.getRecord("doom");
-    console.log("The record mapped is: %s", getDomainRecord);
+    //checking whether the require statements are working or not
+    // setDomainRecord = await domainContract.connect(randomPerson).setRecord("doom", "I now own the domain👿");
+    // await setDomainRecord.wait(); //this will throw an error hence the require statements are working fine
+
 };
 
 const runMain = async () => {
