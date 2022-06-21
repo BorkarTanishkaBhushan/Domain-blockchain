@@ -6,9 +6,12 @@ const main = async () => {
     console.log("Contract deployed to: ", domainContract.address);
     console.log("Contract deployed by: ", owner.address)
     
+    //calling the register function of smart contract
     const txn = await domainContract.register("doom");
     await txn.wait();
 
+
+    //calling the getAddress function of smart contract 
     const domainOwner = await domainContract.getAddress("doom");
     console.log("Owner of domain: ", domainOwner);
 };
