@@ -24,13 +24,13 @@ contract Domains{
         require(len > 0);
         if(len == 3)
         {
-            return 5 * 10**17;
+            return 5 * 10**18;
         }
         else if(len == 4) {
-            return 3 * 10**17;
+            return 3 * 10**18;
         }
         else{
-            return 1 * 10**17;
+            return 1 * 10**18;
         }
     }
 
@@ -38,9 +38,10 @@ contract Domains{
     function register(string calldata name) public payable{
         require(domains[name] == address(0)); //checks whether the domain is not taken by someone else
         uint _price = price(name);
+        console.log("Matic to be paid: %d", _price);
         require(msg.value >= _price, "Not enough Matic paid");
         domains[name] = msg.sender;
-        console.log("%s has regitered a domain!", msg.sender);
+        console.log("%s has registered a domain!", msg.sender);
     }
 
     //this function is simply viewing and returning the addresses of the required domain names

@@ -1,27 +1,17 @@
 const main = async () => {
-    const [owner, randomPerson] = await hre.ethers.getSigners();
     const domainContractFactory = await hre.ethers.getContractFactory('Domains');
-    const domainContract = await domainContractFactory.deploy();
+    const domainContract = await domainContractFactory.deploy("smaash");
     await domainContract.deployed();
     console.log("Contract deployed to: ", domainContract.address);
-    console.log("Contract deployed by: ", owner.address)
     
-    //calling the register function of smart contract
-    const txn = await domainContract.register("smaash");
+    let txn = await domainContract.register("tanu",  {value: hre.ethers.utils.parseEther('3')});
     await txn.wait();
 
-    //calling the getAddress function of smart contract 
-    const domainOwner = await domainContract.getAddress("smaash");
-    console.log("Owner of domain: ", domainOwner);
+    const address = await domainContract.getAddress("tanu");
+    console.log("Owner of domain tanu:", address);
 
-    //calling the setRecord function  
-    const setDomainRecord = await domainContract.setRecord("smaash", "https://www.linkedin.com/in/tanishka-borkar-81aba7233/");
-    await setDomainRecord.wait();
-
-    //checking whether the require statements are working or not
-    // setDomainRecord = await domainContract.connect(randomPerson).setRecord("doom", "I now own the domain👿");
-    // await setDomainRecord.wait(); //this will throw an error hence the require statements are working fine
-
+    const balance = await hre.ethers.provider.getBalance(domainContract.address);
+    console.log("Contract balance:", hre.ethers.utils.formatEther(balance));
 };
 
 const runMain = async () => {
