@@ -42,13 +42,13 @@ contract Domains is ERC721URIStorage { //Domain contract is now inherited the pr
         require(len > 0);
         if(len == 3)
         {
-            return 2 * 10**18;
+            return 0.3 * 10**17;
         }
         else if(len == 4) {
-            return 0.01 * 10**18;
+            return 0.2 * 10**17;
         }
         else{
-            return 0.1 * 10**18;
+            return 0.1 * 10**17;
         }
     }
 
