@@ -11,7 +11,8 @@ import {Base64} from "./libraries/Base64.sol";
 import "hardhat/console.sol";
 
 contract Domains is ERC721URIStorage { //Domain contract is now inherited the props and funcs of ERC721URIStorage contract
-    
+    address payable public owner;
+
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds; //_tokenIds initialized to zero
     //above thing helps to keep track of tokenIds
@@ -32,6 +33,7 @@ contract Domains is ERC721URIStorage { //Domain contract is now inherited the pr
     //NFT Collections's name: Smaash Name Service
     //NFT's Symbol: SNS
     constructor(string memory _tld) payable ERC721("Smaash Name Service", "SNS"){
+        owner = payable(msg.sender);
         tld = _tld;
         console.log("%s name service deployed", _tld);
     }
@@ -115,5 +117,20 @@ contract Domains is ERC721URIStorage { //Domain contract is now inherited the pr
         return records[name];
     }
 
+    modifier onlyOwner() {
+        require(isOwner());
+        _;
+    }
+
+    function isOwner() public view returns (bool) {
+        return msg.sender == owner;
+    }
+
+    function withdraw() public onlyOwner {
+        uint amount = address(this).balance;
+    
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success, "Failed to withdraw Matic");
+    } 
 
 }
